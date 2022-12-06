@@ -1,4 +1,4 @@
-//Broc Williams && Justin Huang
+//Broc Williams, Justin Huang, Nikhil Daniels
 //Wednesday, Nov 10, 2022
 //Hon Prog, P1
 //Desc function of Program
