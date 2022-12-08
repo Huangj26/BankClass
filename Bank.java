@@ -1,4 +1,4 @@
-//Broc Williams, Justin Huang, Nikhil Daniels
+//Broc Williams, Justin Huang, Nikhil Daniel
 //Wednesday, Nov 10, 2022
 //Hon Prog, P1
 //Desc function of Program
@@ -26,6 +26,7 @@ public class Bank
       
 	   CKbal bal = new CKbal();
 	   SVbal sbal = new SVbal();
+	   Bloans cloan = new Bloans();
      
 	   int i = 0;
 	   while(fred.hasNext())
@@ -81,10 +82,29 @@ public class Bank
 			   if(login)  {
 				   while(true)  {
 					   System.out.println("Which account would you like to access?");
-					   System.out.println("1 - Savings, 2 - Checkings 3 - Exit");
+					   System.out.println("1 - Savings, 2 - Checkings 3 - Loans 4 - Exit");
 					   int acc = bob.nextInt();
 					   if(acc == 1)  {
-						   //Nikhil
+						   System.out.println("What would you like to check on your savings account?");
+						   System.out.println("1 - Balance, 2 - Deposit, 3 - Withdraw");
+						   int option = bob.nextInt();
+						   if(option == 1)  {
+							   System.out.println("Your current checkings balance is: $" + sbal.balance(svbal, account));
+						   }else if(option == 2)  {
+							   System.out.println("How much would you like to deposit?");
+							   double depo = bob.nextDouble();
+							   System.out.println("$" + depo + " deposited. Your new balance is $" + sbal.deposit(svbal, account, depo));
+							   svbal[account] = sbal.deposit(svbal, account, depo);
+						   }else if(option == 3)  {
+							   System.out.println("How much would you like to withdraw?");
+							   double with = bob.nextDouble();
+							   if(svbal[account] >= with)  {
+								   System.out.println("$" + with + " withdrawn. Your new balance is $" + sbal.withdraw(svbal, account, with));
+								   ckbal[account] = sbal.withdraw(svbal, account, with);
+							   }else  {
+								   System.out.println("You do not have enough in your balance to withdraw that much. Try again.");
+							   }
+						   }
 					   }else if(acc == 2)  {
 						   System.out.println("What would you like to check on your checkings account?");
 						   System.out.println("1 - Balance, 2 - Deposit, 3 - Withdraw");
@@ -107,6 +127,23 @@ public class Bank
 							   }
 						   }
 					   }else if(acc == 3)  {
+						   System.out.println("What would you like to check on your loans?");
+						   System.out.println("1 - Balance, 2 - Payment");
+						   int option = bob.nextInt();
+						   if(option == 1)  {//Loans
+							   System.out.println("Your current loan amount is: $" + cloan.balance(loans, account));
+						   }else if(option == 2)  {
+							   System.out.println("How much would you like to pay?");
+							   double d1 = bob.nextDouble();
+							   if(loans[account] < d1)  {
+								   System.out.println("That is more than your loans. Please only pay up to your loaned amount. You currently owe $" + loans[account]);
+							   }else if(loans[account] == d1)  {
+								   System.out.println("You paid all your loans. You currently owe $0");
+							   }else  {
+								   System.out.println("You paid off $" + d1 + " of your loans. You still owe $" + cloan.pay(loans, account, d1));
+							   }
+						   }
+					   }else if(acc == 4)  {
 						   break;
 					   }else  {
 						   System.out.println("That is not an option. Please try again.");
